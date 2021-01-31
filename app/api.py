@@ -9,7 +9,8 @@ from flask_restful import reqparse, abort, Api, Resource,  fields, marshal_with
 import traceback
 import os
 from werkzeug.utils import secure_filename
-from . import Vocabulary
+from .vocabulary import Vocabulary
+
 vocab = Vocabulary()
 
 UPLOAD_DIRECTORY = "/home/vektor/code/nlp-database/nlp_db/uploads/"
@@ -38,36 +39,20 @@ parser.add_argument('task')
 # process words from texts
 
 
+    
 class Upload(Resource):
-    def post(self):
+    def post(self,filename):
         """Upload a file."""
-        if "/" in filename:
-            # Return 400 BAD REQUEST
-            abort(400, "no subdirectories allowed")
         with open(os.path.join(UPLOAD_DIRECTORY, filename), "wb") as fp:
             fp.write(request.data)
         vocab.add_doc(request.data)
         # Return 201 CREATED
         return "", 201
 
-    def error_message(self, key, msg, status=400):
-        return {"key": key, "msg": msg, "statis": status}
-
-    def list_files():
-        """Endpoint to list files on the server."""
-        files = []
-        for filename in os.listdir(UPLOAD_DIRECTORY):
-            path = os.path.join(UPLOAD_DIRECTORY, filename)
-            if os.path.isfile(path):
-                files.append(filename)
-        return jsonify(files)
-
-
-api.add_resource(Upload, '/upload')
-
+api.add_resource(Upload, "/upload/<filename>")
 
 class Download(Resource):
-    def get(self):
+    def get(self,path):
         """Download a file."""
         return send_from_directory(UPLOAD_DIRECTORY,
                                    path, as_attachment=True)
@@ -94,7 +79,7 @@ class GetDocsVocab(Resource):
         return vocab.get_vocab()
 
 
-api.add_resource(Get2Vocab, "/docs_words")
+api.add_resource(GetDocsVocab, "/docs_words")
 
 
 class GetDocs2GramVocab(Resource):
@@ -102,7 +87,7 @@ class GetDocs2GramVocab(Resource):
         return vocab.get_vocab()
 
 
-api.add_resource(Get2Vocab, "/docs_2_gram")
+api.add_resource(GetDocs2GramVocab, "/docs_2_gram")
 
 
 if __name__ == '__main__':

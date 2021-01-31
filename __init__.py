@@ -1,7 +1,7 @@
 """
 nlp_db __init__() file.
 """
-from .src import *
+from . import app
 
 
 name = 'nlp_db'
