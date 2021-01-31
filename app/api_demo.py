@@ -1,9 +1,6 @@
 """
     https://flask-restful.readthedocs.io/en/latest/quickstart.html
     python api.py
-    curl http://127.0.0.1:5000/
-    curl http://localhost:5000/todo1 -d "data=Remember the milk" -X PUT
-{"todo1": "Remember the milk"}
 """
 
 from flask import Flask, request

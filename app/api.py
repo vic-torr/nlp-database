@@ -1,28 +1,54 @@
 """
     https://flask-restful.readthedocs.io/en/latest/quickstart.html
     python api.py
-    curl http://127.0.0.1:5000/
-    curl http://localhost:5000/todo1 -d "data=Remember the milk" -X PUT
-{"todo1": "Remember the milk"}
 """
 
-from flask import Flask, request
-from flask_restful import Resource, Api
+from flask import Flask, request, flash, redirect, url_for
+from flask_restful import fields, marshal_with
+from flask_restful import reqparse, abort, Api, Resource
+import traceback
+import os
+import io
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = '../uploads'
+ALLOWED_EXTENSIONS = {'txt'}
+
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app = Flask(__name__)
 api = Api(app)
 
-todos = {}
+parser = reqparse.RequestParser()
+parser.add_argument('task')
 
-class TodoSimple(Resource):
-    def get(self, todo_id):
-        return {todo_id: todos[todo_id]}
+# process words from texts
+class NlpDb(Resource):
+    def get(self):
+        return {'request':'return'},200
 
-    def put(self, todo_id):
-        todos[todo_id] = request.form['data']
-        return {todo_id: todos[todo_id]}
+    def delete(self):
+        return {'request':'return'},200
 
-api.add_resource(TodoSimple, '/<string:todo_id>')
+    def put(self):
+        return {'request':'return'},200
+        
+    def post(self):
+        try:
+            
+            args = self.parser.parse_args()
+            return {'request':'ok'},201
+        except Exception as e:
+            traceback.print_exc()
+            return self.error_message('error', e.value)
+    
+    def error_message(self, key, msg, status=400):
+        return {"key":key, "msg":msg, "statis":status}
+
+api.add_resource(NlpDb, '/post')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
+
