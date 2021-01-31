@@ -11,9 +11,14 @@ import os
 import io
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = '../uploads'
+UPLOAD_DIRECTORY = "/home/vektor/code/nlp-database/nlp_db/uploads/"
+if not os.path.exists(UPLOAD_DIRECTORY):
+    os.makedirs(UPLOAD_DIRECTORY)
+    
 ALLOWED_EXTENSIONS = {'txt'}
-
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -46,7 +51,28 @@ class NlpDb(Resource):
     def error_message(self, key, msg, status=400):
         return {"key":key, "msg":msg, "statis":status}
 
-api.add_resource(NlpDb, '/post')
+api.add_resource(NlpDb, '/upload')
+
+
+@app.route('/', methods=['POST'])
+def upload_file():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('uploaded_file',
+                                    filename=filename))
+    return 
 
 
 if __name__ == '__main__':
