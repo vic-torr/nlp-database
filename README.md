@@ -19,7 +19,7 @@ mkvirtualenv nlp_db
 python3 -m pip install --upgrade setuptools wheel
 python3 setup.py sdist bdist_wheel
 
-
+pip install -e .
 
 setup aws
 ============

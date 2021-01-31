@@ -1,17 +1,23 @@
 from typing import List, Dict, Tuple, Any, Union, Set
-
+import re
 
 class Vocabulary:
-    global_vocab = set()
-    global_two_gram_vocab = set()
-    doc_vocabulary = List[Set]
-    doc_two_gram_vocab = List[Set]
-    is_empty = True
     def __init__(self):
-        pass
-    
+        self.global_vocab = set()
+        self.global_two_gram_vocab = set()
+        self.doc_vocabulary = List[Set]
+        self.doc_two_gram_vocab = List[Set]
+        self.is_empty = True
+        self.words_docs = list()
+        
     def add_doc(self, text: str):
-        pass   
+        all_words_list = re.findall(r'\w+', text)
+        words_list = list(set(all_words_list))
+        for w in words_list:
+            self.words_frequency.append(words_list.count(w))
+        self.global_vocab.add(words_list)
+        self.words_docs.append( words_list )
+           
          
     def get_vocab(self):      
         return self.global_vocab if not is_empty else "Empty"

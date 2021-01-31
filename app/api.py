@@ -8,8 +8,11 @@ from flask import (Flask, request, flash, redirect, url_for,
 from flask_restful import reqparse, abort, Api, Resource,  fields, marshal_with
 import traceback
 import os
+import sys
 from werkzeug.utils import secure_filename
-from .vocabulary import Vocabulary
+from nlp_db.api.vocabulary import Vocabulary
+import json
+
 
 vocab = Vocabulary()
 
@@ -41,6 +44,14 @@ parser.add_argument('task')
 
     
 class Upload(Resource):
+    """
+    @api {post} /upload/<filename> send file and parse vocabularies
+    @apiName api
+    @apiGroup Upload
+
+    @apiParam (file) {String} text to be parsed
+    @apiSuccess {Dict} vocab list
+    """
     def post(self,filename):
         """Upload a file."""
         with open(os.path.join(UPLOAD_DIRECTORY, filename), "wb") as fp:
@@ -90,5 +101,13 @@ class GetDocs2GramVocab(Resource):
 api.add_resource(GetDocs2GramVocab, "/docs_2_gram")
 
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+
+    if len(sys.argv) == 1:
+        host_string = "0.0.0.0"
+    else:
+        host_string = sys.argv[1]
+
+    #app.config.from_pyfile(SETTINGS_PATH)
+    app.run(host=host_string, debug=True)
