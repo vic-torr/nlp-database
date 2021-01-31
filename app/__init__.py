@@ -1,4 +1,3 @@
+from .api import *
+from .vocabulary import Vocabulary
 
-from . import api
-
-from . import Vocabulary
