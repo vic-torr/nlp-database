@@ -9,16 +9,17 @@ class Vocabulary:
         self.doc_two_gram_vocab = List[Set]
         self.is_empty = True
         self.words_docs = list()
-        self.docs_words_frequency = list()
+        self.docs_words_frequency = list(list)
         
     def add_doc(self, text: str):
         all_words_list = re.findall(r'\w+', text)
-        words_list = list(set(all_words_list))
+        words_set = set(all_words_list)
+        words_list = list(words_set)
         words_frequency = list()
         for w in words_list:
             words_frequency.append(words_list.count(w))
         self.docs_words_frequency.append(words_frequency)
-        self.global_vocab.add(words_list)
+        self.global_vocab.add(words_set)
         self.words_docs.append( words_list )
            
          

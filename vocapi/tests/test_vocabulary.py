@@ -1,6 +1,6 @@
 # %%
 import pytest
-import vocapi
+from  vocapi import Vocabulary
 
 
 
@@ -44,3 +44,5 @@ vocab.add_doc(text)
 print(get_vocab()[200])
 
 
+
+# %%

@@ -1,5 +1,5 @@
 """
-    nlp_db
+    vocapi
 """
 import setuptools
 
@@ -12,11 +12,11 @@ with open(req_file) as f:
     required = f.read().splitlines()
     
 setuptools.setup(
-    name="nlp_db",
+    name="vocapi",
     version="0.0.2",
     author="vektor",
     author_email="timtkd2@yahoo.com.br",
-    description="nlp_db",
+    description="vocapi",
     long_description=long_description,
     long_description_content_type="text/markdown",
     install_requires=required,

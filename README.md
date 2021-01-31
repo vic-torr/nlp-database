@@ -15,7 +15,7 @@
 
 setup package
 ==============
-mkvirtualenv nlp_db
+mkvirtualenv vocapi
 python3 -m pip install --upgrade setuptools wheel
 python3 setup.py sdist bdist_wheel
 
@@ -34,5 +34,5 @@ source /usr/local/bin/virtualenvwrapper.sh
 export PIP_REQUIRE_VIRTUALENV=true
 source ~/.bashrc
 
-git clone https://github.com/vic-torr/nlp_db
-mkvirtualenv nlp_db --python=3.8
+git clone https://github.com/vic-torr/vocapi
+mkvirtualenv vocapi --python=3.8

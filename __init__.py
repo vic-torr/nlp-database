@@ -1,7 +1,11 @@
+
 """
-nlp_db __init__() file.
+vocapi __init__() file.
 """
-from . import app
+
+from .api import *
+from .vocabulary import Vocabulary
+
+name = "vocapi"
 
 
-name = 'nlp_db'
