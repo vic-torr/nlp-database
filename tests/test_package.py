@@ -1,3 +1,4 @@
+import pytest
 import nlp_db
 
 def test_package():
