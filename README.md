@@ -11,3 +11,26 @@
 |GET   | word 2-gram of each and all documents  | url/docs_2_gram   |
 
 
+
+
+
+
+
+
+setup aws
+============
+
+
+
+
+
+sudo apt-get install python3-pip python3-dev python-virtualenv
+virtualenv --system-site-packages -p python3 .env3
+source .env3/bin/activate
+git clone https://github.com/vic-torr/nlp_db
+
+pip install -r requirements.txt
+
+
+
+PYTHONPATH=./ FLASK_ENV=development  python ./nlp-db/app.py
