@@ -71,7 +71,7 @@ class Download(Resource):
 
 class GetVocab(Resource):
     def get(self):
-        return {"Vocabulary": to_list(vocab.get_vocab())}
+        return {"Vocabulary": dict.fromkeys(vocab.get_vocab(),0)}
 
 
 api.add_resource(GetVocab, "/word_vocab")
