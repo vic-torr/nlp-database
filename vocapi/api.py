@@ -53,7 +53,7 @@ class Upload(Resource):
     """
     def post(self,filename):
         """Upload a file."""
-        with open(os.path.join(UPLOAD_DIRECTORY, filename), "wb") as fp:
+        with open(os.path.join(UPLOAD_DIRECTORY, filename), "w") as fp:
             fp.write(request.data)
         vocab.add_doc(request.data)
         # Return 201 CREATED

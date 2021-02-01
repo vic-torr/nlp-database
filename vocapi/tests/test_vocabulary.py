@@ -1,4 +1,4 @@
-# %%
+#!/bin/python3
 import pytest
 from  vocapi import Vocabulary
 
@@ -36,13 +36,20 @@ O Captain! My Captain!
              """
              
 
-
-# %%
-
 vocab = Vocabulary()
-vocab.add_doc(text)
-print(get_vocab()[200])
-
-
 
 # %%
+def test_add_doc():
+  vocab.add_doc(text)
+# %%
+def test_get_vocab():
+  print(vocab.get_vocab())
+
+def test_get_docs_vocab():
+  print(vocab.get_docs_vocab())
+
+
+if __name__ == '__main__':
+  test_add_doc()
+  test_get_vocab()
+  test_get_docs_vocab()

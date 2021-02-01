@@ -1,7 +1,7 @@
 #!/bin/python3
 # %%
 import os
-os.system('python ../app/api.py &')
+os.system('python ../vocapi/api.py &')
 
 # %%
 import requests
