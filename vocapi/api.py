@@ -1,8 +1,10 @@
 """
     https://flask-restful.readthedocs.io/en/latest/quickstart.html
     python api.py
-"""
+    
+#TODO apidoc
 
+"""
 from flask import (Flask, request, flash, redirect, url_for,
                    abort, jsonify, send_from_directory)
 from flask_restful import reqparse, abort, Api, Resource,  fields, marshal_with
@@ -40,7 +42,6 @@ parser.add_argument('task')
 
 # process words from texts
 
-
     
 class Upload(Resource):
     """
@@ -54,8 +55,8 @@ class Upload(Resource):
     def post(self,filename):
         """Upload a file."""
         with open(os.path.join(UPLOAD_DIRECTORY, filename), "w") as fp:
-            fp.write(request.data)
-        vocab.add_doc(request.data)
+            fp.write(request.data.decode())
+        vocab.add_doc(request.data.decode())
         # Return 201 CREATED
         return "", 201
 
@@ -70,7 +71,7 @@ class Download(Resource):
 
 class GetVocab(Resource):
     def get(self):
-        return vocab.get_vocab()
+        return {"Vocabulary": to_list(vocab.get_vocab())}
 
 
 api.add_resource(GetVocab, "/word_vocab")
@@ -78,7 +79,7 @@ api.add_resource(GetVocab, "/word_vocab")
 
 class Get2Vocab(Resource):
     def get(self):
-        return vocab.get_two_gram_vocab()
+        return {"Vocabulary": vocab.get_two_gram_vocab()}
 
 
 api.add_resource(Get2Vocab, "/2_gram_vocab")
@@ -86,7 +87,8 @@ api.add_resource(Get2Vocab, "/2_gram_vocab")
 
 class GetDocsVocab(Resource):
     def get(self):
-        return vocab.get_vocab()
+        return {"Vocabulary": vocab.get_vocab()}
+        
 
 
 api.add_resource(GetDocsVocab, "/docs_words")
@@ -94,7 +96,7 @@ api.add_resource(GetDocsVocab, "/docs_words")
 
 class GetDocs2GramVocab(Resource):
     def get(self):
-        return vocab.get_vocab()
+        return {"Vocabulary": vocab.get_vocab()}
 
 
 api.add_resource(GetDocs2GramVocab, "/docs_2_gram")
