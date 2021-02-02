@@ -11,6 +11,12 @@
 |GET   | word 2-gram of each and all documents  | url/docs_2_gram   |
 
 
+How to run
+=============
+
+bash launch/launch_api.sh
+bash launch/post.sh
+bash launch/get.sh
 
 
 Package Setup

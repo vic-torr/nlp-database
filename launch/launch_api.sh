@@ -1,4 +1,4 @@
  #!/bin/bash
  
  
-python /home/vektor/code/nlp-database/vocapi/vocapi/api.py 
+python ../vocapi/api.py 
