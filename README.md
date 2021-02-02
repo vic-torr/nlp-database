@@ -4,7 +4,7 @@
 
 | HTTP Method  | Action  |  URI | 
 |---|---|---|
-|POST | Post text                               | url/post          |
+|POST | Post text                               | url/upload        |
 |GET   | Complete vocabulary                    | url/word_vocab    |
 |GET   | Complete 2-gram vocabulary             | url/2_gram_vocab  |
 |GET   | word array of each and all documents   | url/docs_words    |
