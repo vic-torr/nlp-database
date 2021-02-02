@@ -17,7 +17,7 @@ import json
 
 vocab = Vocabulary()
 
-UPLOAD_DIRECTORY = "/home/vektor/code/nlp-database/vocapi/uploads/"
+UPLOAD_DIRECTORY = "../uploads/"
 
 UPLOAD_FOLDER = UPLOAD_DIRECTORY
 ALLOWED_EXTENSIONS = {'txt'}
@@ -71,7 +71,7 @@ class Download(Resource):
 
 class GetVocab(Resource):
     def get(self):
-        return {"Vocabulary": dict.fromkeys(vocab.get_vocab(),0)}
+        return {"Vocabulary": vocab.get_vocab()}
 
 
 api.add_resource(GetVocab, "/word_vocab")
